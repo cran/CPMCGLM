@@ -4,14 +4,17 @@
 Correction of the significance level after multiple coding of an explanatory variable in generalized linear model.
 }
 \description{
-We propose to determine the correction of the significance level after multiple
-coding of an explanatory variable in Generalized Linear Model. The possible codings
-are: Box-Cox, dichotomous and categorical transformations. The different methods of
-correction of the p-value are the Single step Bonferroni procedure, and resampling
-based methods(permutation and the parametric bootstrap procedure). If only some 
-continuous, and dichotomous transformations are performed this package offers an 
-exact correction of the p-value developped by B.Liquet & D.Commenges in 2005.
-The naive method with no correction is also available.
+   We propose to determine the correction of the significance 
+   level after multiple coding of an explanatory variable in 
+   Generalized Linear Model. The different methods of correction 
+   of the p-value are the Single step Bonferroni procedure, and 
+   resampling based methods developped by P.H.Westfall in 1993. 
+   Resampling methods are based on the permutation 
+   and the parametric bootstrap procedure. If some 
+   continuous, and dichotomous transformations are performed 
+   this package offers an exact correction of the p-value
+   developped by B.Liquet & D.Commenges in 2005. The naive method
+   with no correction is also available.
 }
 
 \usage{
@@ -49,10 +52,10 @@ a matrix with the order of quantile which are used for computing the categorical
 if you do not enter the "categ" argument, you can enter the number of categorical transformations that you want. The strategy of coding is presented in "Details" section.
 }
   \item{boxcox}{
-a vector of \eqn{\lambda} parameters corresponding to each BoxCox transformation. The BoxCox transformation is explained in "Details" section.
+a vector of \eqn{\lambda} parameters corresponding to each BoxCox transformation. 
 }
   \item{nboxcox}{
-if you do not enter the "boxcox" argument, you can enter the number of boxcox transformations that you want. The maximum number of transformations that you can enter is 5. For the strategy of coding, it seems natural to try the crude variable (\eqn{\lambda}1=1) and  the log transformation. When two transformations are condidered we
+if you do not enter the "boxcox" argument, you can enter the number of boxcox transformations that you want. The maximum number of transformations that you can enter is 5. For the stategy of coding, it seems natural to try the crude variable (\eqn{\lambda}1=1) and  the log transformation. When two transformations are condidered we
 propose \eqn{\lambda}1 =1 and  \eqn{\lambda}2 =0. Further interesting transformations 
 include the square \eqn{\lambda}3 =2 and the square root \eqn{\lambda}4 =0.5. Finally, the power \eqn{\lambda}5 =3/2 may be tried.
 }
@@ -72,38 +75,32 @@ For two transformations, the first tercile is used for the first dichotomous tra
 
 - categ: The categ argument needs to be a matrix. You need to have one line per transformation. Therefore, the dimension of the matrix is  nbq \eqn{\times} maxq, where nbq is the number of transformations tried with the categ
 transformations, and maxq is the maximum of number of quantiles that is used in one quantile transformation. 
+
 For example: 
 \tabular{rllll}{
          [1,] \tab 0.33 \tab 0.66 \tab NA \tab NA\cr
          [2,] \tab 0.25 \tab 0.5 \tab 0.75\tab NA\cr
-	       [3,] \tab 0.2 \tab 0.4 \tab 0.6 \tab 0.8 \cr   
-       }       
+	       [3,] \tab 0.2 \tab 0.4 \tab 0.6 \tab 0.8 \cr
+       }
+
 In this example, three transformations are performed, so nbq=3. And maxq=4, because the maximum of number of quantiles that we used for the quintiles is 4. The first transformation leads to 
 a categorical transformation in three classes, with cutpoints at the first and the second tercile. The second transformation allows to obtain a categorical variable in four classes with cutpoints
 at the quartile. And the third one allows to obtain a variable in five classes with the cutpoints at the quintiles.
 
-
 - nb.categ: This concerns categorical transformations in more than two classes. Considering one of these transformations, the most intuitive method is to use a transformation in three classes at the tercile. For two of such transformations, we added the previous coding and a categorical transformation in four classes based on the quartile, and so on.
-
-
-- boxcox: The BoxCox transformation \eqn{X(k)} of \eqn{X} is defined as follows:
-
-\eqn{ X(k)= \{
-   \begin{array} {ll}
-   \lambda_{k}^{-1}(X^{\lambda_{k}}-1),\quad $if$ \ \lambda_{k} > 0;\\
-    \log{X},\quad $if$ \ \lambda_{k} =0.
-   \end{array}   
-}
 
 - cutpoint: The cutpoint argument needs to be a matrix. The form of this matrix is similar as one of the quantile matrix. The number of rows corresponds to the number of tranformations (nbc)
 tried with this method, and the number of columns corresponds to the maximum of cutpoints (maxc) that is used in one transformation. 
-For example:  
+
+For example: 
 \tabular{rllll}{
          [1,] \tab 8 \tab 16 \tab NA \tab NA\cr
          [2,] \tab 6 \tab 12 \tab 18\tab NA\cr
 	       [3,] \tab 5 \tab 10 \tab 15 \tab 20 \cr
        }
-In this example, one wants to perform three transformations, hence the three rows. The first transformation leads to a categorical variable in three classes, with two cutpoints for the value "8",
+
+
+In this example,one wants to perform three transformations, hence the three rows. The first transformation leads to a categorical variable in three classes, with two cutpoints for the value "8",
 and the value "16". The second transformation allows to obtain a categorical transformation in four classes, with cutpoints for values: "6","12" and "18". The last transformation tried allows to obtain
 a categorical transformation in five classes with cutpoint for values: "5","10","15", and "20". 
 Therefore, we used four columns because four is the maximum of cutpoints used, in the third transformation.
@@ -130,10 +127,6 @@ Therefore, we used four columns because four is the maximum of cutpoints used, i
 \item{permutation.adjusted.pvalue}{the adjusted Pvalue of the best association with the permutation correction.}
 }
 \references{
-
-Liquet, B. and Riou, J. (2012). Correction of significance level after multiple coding in the Generalized 
-Linear Model. [Submitted].
-
 Liquet, B. and Commenges, D. (2005). Computation of the p-value of the minimum of score tests in the
 generalized linear model, application to multiple coding. \emph{Statistics & Probability Letters}, 71:33-38.
 

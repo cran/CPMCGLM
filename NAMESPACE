@@ -2,6 +2,6 @@ exportPattern("^[[:alpha:]]+")
 S3method(print,CPMCGLM)
 S3method(summary,CPMCGLM)
 import(mvtnorm,plyr)
-export("CPMCGLM")
+export(CPMCGLM)
 
 

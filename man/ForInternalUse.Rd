@@ -1,4 +1,4 @@
-\name{For internal use only ... }
+\name{ForInternalUse}
 \alias{codcut}
 \alias{permut}
 \alias{Codage}

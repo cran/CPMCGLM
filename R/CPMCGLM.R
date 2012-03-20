@@ -258,10 +258,10 @@ else {pval.exact1<-"Correction not available for these codings"}
 		Y1[,j]<- switch(family,
 		"gaussian"= rnorm(n,mean=mean(param),sd=sd(res)) ,
 		"binomial"= rbinom(n,1,prob=param) ,
-		"poisson"= rpois(n,lambda=mean(param)),
+		"poisson"= rpois(n,mean(param)),
 		)
 		#if (family=="binomial"){
-		#Y1[,j] <- rbinom(n,1,p=param)}
+		#Y1[,j] <- rbinom(n,1,prob=param)}
 		if(ind.ajust==1){
 			f1<-paste("~",namesZ)
 		}else{

@@ -1,5 +1,13 @@
 test.liquet<-function(formula,data,codage,Z,Y,family,link1,family1)
 {
+    if (length(dim(codage))==3){
+  Xcod <- matrix(NA,nrow=nrow(data),ncol=dim(codage)[3])
+for (i in 1:dim(codage)[3]){
+  Xcod[,i] <- codage[,1,i]
+}
+
+ codage <- Xcod
+    }
  model.h0 <- glm(formula,family=family1(link=link1),data)
  tol <- 10E-40
 
@@ -12,8 +20,7 @@ phi<-switch(family,
 	)
 
 
-
- pi3 <- model.h0$fitted
+pi3 <- model.h0$fitted
 
 V<-switch(family,
 	"binomial"=diag(pi3*(1-pi3),length(Y)),
@@ -26,7 +33,7 @@ V<-switch(family,
  ZZ<-cbind(rep(1,nrow(data)),Z)
 
  H<-V%*%ZZ%*%(solve(t(ZZ)%*%V%*%ZZ))%*%t(ZZ)
- #initialisation des param�tres
+ #initialisation des param???tres
  num<-NULL
 num1<-NULL
  J<-NULL

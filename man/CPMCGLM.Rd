@@ -19,7 +19,7 @@ Correction of the significance level after multiple coding of an explanatory var
 
 \usage{
 CPMCGLM(formula, family, link, data, varcod, dicho, nb.dicho, categ, 
-nb.categ, boxcox, nboxcox, N=1000, cutpoint)
+nb.categ, boxcox, nboxcox, FP , N=1000, cutpoint)
 }
 
 \arguments{
@@ -48,9 +48,12 @@ if you do not enter the "dicho" argument, you can enter the number of dichotomou
   \item{categ}{
 a matrix with the order of quantile which are used for computing the categorical cutpoints of each transformation. The details of the "categ" specification are given under "Details". If you specify this argument, "nb.categ" must not be present.
 }
+
   \item{nb.categ}{
 if you do not enter the "categ" argument, you can enter the number of categorical transformations that you want. The strategy of coding is presented in "Details" section.
 }
+
+
   \item{boxcox}{
 a vector of \eqn{\lambda} parameters corresponding to each BoxCox transformation. 
 }
@@ -59,6 +62,11 @@ if you do not enter the "boxcox" argument, you can enter the number of boxcox tr
 propose \eqn{\lambda}1 =1 and  \eqn{\lambda}2 =0. Further interesting transformations 
 include the square \eqn{\lambda}3 =2 and the square root \eqn{\lambda}4 =0.5. Finally, the power \eqn{\lambda}5 =3/2 may be tried.
 }
+
+ \item{FP}{
+a matrix with powers which are used for computing each fractional polynomial transformations. The details of the "FP" specification are given under "Details" section.
+}
+
   \item{N}{
 the number of resampling that you want to do.
 }
@@ -87,6 +95,7 @@ In this example, three transformations are performed, so nbq=3. And maxq=4, beca
 a categorical transformation in three classes, with cutpoints at the first and the second tercile. The second transformation allows to obtain a categorical variable in four classes with cutpoints
 at the quartile. And the third one allows to obtain a variable in five classes with the cutpoints at the quintiles.
 
+
 - nb.categ: This concerns categorical transformations in more than two classes. Considering one of these transformations, the most intuitive method is to use a transformation in three classes at the tercile. For two of such transformations, we added the previous coding and a categorical transformation in four classes based on the quartile, and so on.
 
 - cutpoint: The cutpoint argument needs to be a matrix. The form of this matrix is similar as one of the quantile matrix. The number of rows corresponds to the number of tranformations (nbc)
@@ -104,6 +113,19 @@ In this example,one wants to perform three transformations, hence the three rows
 and the value "16". The second transformation allows to obtain a categorical transformation in four classes, with cutpoints for values: "6","12" and "18". The last transformation tried allows to obtain
 a categorical transformation in five classes with cutpoint for values: "5","10","15", and "20". 
 Therefore, we used four columns because four is the maximum of cutpoints used, in the third transformation.
+
+- FP: The FP argument needs to be a matrix.  The number of rows correspond to the number of transformations tested, and the number of columns is the maximum number of degrees tested for a single transformation.
+
+For example:
+
+\tabular{rllll}{
+         [1,] \tab -2 \tab NA \tab NA \tab NA\cr
+         [2,] \tab 0.5 \tab 1 \tab -0.5\tab 2\cr
+	       [3,] \tab -0.5 \tab 1 \tab NA \tab NA \cr
+       }
+       
+In this example, the user performs three transformations of the variable of interest. The first is a fractional polynomial transformation with one degree and a power of -2. The second transformation is a fractional polynomial transformation with four degrees and powers of 0.5,1,-0.5,and 2. The third transformation is a fractional polynomial transformation with two degrees and powers of  -0.5, and 1.
+
  }
 \value{
 \item{call}{the code used for the model.}
@@ -147,8 +169,10 @@ J.Riou, A.Diakite, and B.Liquet
 \seealso{
 \code{\link{print.CPMCGLM}}, \code{\link{summary.CPMCGLM}}
 }
+
 \examples{
 \dontrun{
+
 # load data
 data(data_sim)
 #
@@ -175,15 +199,21 @@ fit2
 summary(fit2)
 
 #Logit Model
+FP1 <-  matrix(NA,ncol=4,nrow=3)
+FP1[1,1] <- -2
+FP1[2,] <- c(0.5,1,-0.5,2)
+FP1[3,1:2] <- c(-0.5,1)
+
 fit3 <- CPMCGLM(formula= Parameter~Age+as.factor(Sport)+Height+Weight,
 family="binomial",link="logit",data=data_sim,varcod="Age",N=1000,
-boxcox=c(0,1,2,3),nb.dicho=3)
+boxcox=c(0,1,2,3),nb.dicho=3,FP=FP1)
 ### print fit3
 fit3 
 ### summary fit3
 summary(fit3)
 
 #Probit Model
+
 fit4 <- CPMCGLM(formula= Parameter~Age+as.factor(Sport)+Height+Weight,
 family="binomial",link="probit",data=data_sim,varcod="Age",N=1000,
 nboxcox=2,nb.categ=4)

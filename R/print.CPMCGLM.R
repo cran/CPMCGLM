@@ -28,7 +28,6 @@ print.CPMCGLM <-function(x, ...)
 	else{pe.pvalue<-x$permutation.adjusted.pvalue}
 	cat("\nBest coding \n")
 	if(substr(x$BC,1,8)=="Quantile"){
-		
 		if (length(x$bestcod)==1){
 		cat("Method:","","Dichotomous","","transformation","\n")}
 		else{cat("Method:","",substr(x$BC,1,8),"\n")}
@@ -42,6 +41,11 @@ print.CPMCGLM <-function(x, ...)
 	if(substr(x$BC,1,6)=="Boxcox"){
 		cat("Method:","",substr(x$BC,1,6),"\n")
 		cat("Value of the BoxCox parameter:","",x$bestcod,"\n")
+	}
+	
+	if(substr(x$BC,1,22)=="Fractionnal Polynomial"){
+	  cat("Method:","",substr(x$BC,1,22),"\n")
+	  cat("Value of the Fractionnal Polynomial parameters:","",na.omit(x$bestcod),"\n")
 	}
 	
 	cat("\n")

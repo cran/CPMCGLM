@@ -8,7 +8,7 @@ codcut<-function(data,cutpoint,var.cod)
 		X1<-NULL
 	}else{
 		X1<-matrix(nrow=length(var.cod),ncol=nrow(cutpoint))
-	#A partir de chaque point de coupure defini dans quantile on d�finie une variable binaire
+
 		for (i in 1:nrow(cutpoint))
 		{
 			X1[,i]<- cut(var.cod,breaks=c(min(var.cod),cutpoint[i,1:(ncol(cutpoint))],max(var.cod)),include.lowest = TRUE)

@@ -1,7 +1,11 @@
 exportPattern("^[[:alpha:]]+")
 S3method(print,CPMCGLM)
 S3method(summary,CPMCGLM)
-import(mvtnorm,plyr)
+import(mvtnorm,plyr,abind)
+importFrom("stats", "binomial", "contrasts", "gaussian", "glm",
+             "is.empty.model", "model.frame", "model.matrix",
+             "model.response", "na.omit", "pchisq", "pnorm", "poisson",
+             "rbinom", "rnorm", "rpois", "sd", "update", "var")
 export(CPMCGLM)
 
 

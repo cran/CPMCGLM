@@ -3,6 +3,7 @@
 \alias{permut}
 \alias{Codage}
 \alias{Boxcox}
+\alias{PF}
 \alias{bestcod}
 \alias{transf}
 \alias{tmultboot}
